@@ -11,7 +11,12 @@ const PORT = Number(env('PORT', '3000'));
 const setupServer = () => {
   const app = express();
 
-  app.use(express.json());
+  app.use(
+    express.json({
+      type: ['application/json', 'application/vnd.api+json'],
+    }),
+  );
+
   app.use(cors());
 
   app.use(
@@ -24,8 +29,8 @@ const setupServer = () => {
 
   app.use(contactsRouter);
 
-  app.use(errorHandler);
   app.use('*', notFoundHandler);
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.info(`Server is running on port ${PORT}`);
