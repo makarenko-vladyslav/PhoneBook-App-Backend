@@ -11,7 +11,8 @@ export const createContactSchema = Joi.object({
     .pattern(/^(\+380\d{9})$/)
     .required()
     .messages({
-      'string.pattern.base': 'Phone number should start with +380',
+      'string.pattern.base':
+        'Phone number should start with +380 and have 12 digits',
       'any.required': 'Phone number is required',
     }),
   email: Joi.string().email().messages({
@@ -30,7 +31,8 @@ export const updateContactSchema = Joi.object({
   phoneNumber: Joi.string()
     .pattern(/^(\+380\d{9})$/)
     .messages({
-      'string.pattern.base': 'Phone number should start with +380',
+      'string.pattern.base':
+        'Phone number should start with +380 and have 12 digits',
     }),
   email: Joi.string().email().messages({
     'string.email': 'Email should be in format mymail@my.com',
