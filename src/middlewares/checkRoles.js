@@ -7,20 +7,28 @@ export const checkRoles =
   (...roles) =>
   async (req, res, next) => {
     const { user } = req;
+
     if (!user) {
       next(createHttpError(401));
       return;
     }
 
     const { role } = user;
+
     if (roles.includes(ROLES.ADMIN) && role === ROLES.ADMIN) {
       next();
       return;
     }
 
     if (roles.includes(ROLES.USER) && role === ROLES.USER) {
-      const { contactId } = req.params;
-      
+      // coming back to this
+      if (req.method === 'POST') {
+        next();
+        return;
+      }
+
+      const contactId = user._id;
+
       if (!contactId) {
         next(createHttpError(403));
         return;
@@ -28,7 +36,7 @@ export const checkRoles =
 
       const contact = await ContactsCollection.findOne({
         _id: contactId,
-        parentId: user._id,
+        userId: user._id,
       });
 
       if (contact) {

@@ -47,10 +47,10 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const createContactController = async (req, res) => {
-  const { userId } = req.user._id;
+  const userId = req.user._id;
 
   const contactData = {
-    ...req.user,
+    ...req.user.toObject(),
     userId,
   };
 
