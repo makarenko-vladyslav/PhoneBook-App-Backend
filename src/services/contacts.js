@@ -12,7 +12,9 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactsCollection.find();
+  const contactsQuery = ContactsCollection.find({
+    userId: filter.userId,
+  });
 
   if (filter.isFavorite) {
     contactsQuery.where('isFavorite').equals(filter.isFavorite);
