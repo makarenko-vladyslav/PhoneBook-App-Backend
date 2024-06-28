@@ -7,7 +7,3 @@ export const SORT_ORDER = {
   DESC: 'desc',
 };
 
-export const ROLES = {
-  ADMIN: 'admin',
-  USER: 'user',
-};
