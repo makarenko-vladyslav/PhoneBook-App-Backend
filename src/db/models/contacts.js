@@ -25,6 +25,7 @@ const ContactsSchema = new Schema(
       default: 'personal',
     },
     userId: { type: String, required: true, ref: 'users' },
+    photo: { type: String, required: false },
   },
   {
     timestamps: true,
