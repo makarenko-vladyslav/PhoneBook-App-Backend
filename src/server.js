@@ -34,10 +34,9 @@ const setupServer = () => {
   );
 
   app.use(cookieParser());
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(router);
-
-  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);
