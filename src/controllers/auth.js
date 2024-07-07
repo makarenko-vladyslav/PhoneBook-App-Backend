@@ -24,15 +24,7 @@ export const registerUserController = async (req, res) => {
 export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
 
-  res.cookie('refreshToken', session.refreshToken, {
-    httpOnly: true,
-    expires: new Date(Date.now() + THIRTY_DAYS),
-  });
-
-  res.cookie('sessionId', session._id, {
-    httpOnly: true,
-    expires: new Date(Date.now() + THIRTY_DAYS),
-  });
+  setupSession(res, session);
 
   res.json({
     status: 200,
@@ -59,6 +51,7 @@ const setupSession = (res, session) => {
     httpOnly: true,
     expires: new Date(Date.now() + THIRTY_DAYS),
   });
+
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + THIRTY_DAYS),
@@ -114,6 +107,7 @@ export const getGoogleOAuthUrlController = async (req, res) => {
 
 export const loginWithGoogleController = async (req, res) => {
   const session = await loginOrSignupWithGoogle(req.body.code);
+
   setupSession(res, session);
 
   res.json({
