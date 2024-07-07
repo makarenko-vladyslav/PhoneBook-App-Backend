@@ -11,10 +11,6 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000",
-      "description": "Local development server"
-    },
-    {
       "url": "https://hw2-mongodb-6ic0.onrender.com",
       "description": "Production server"
     }
