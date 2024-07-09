@@ -7,7 +7,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is a documentation of contacts app"
+    "description": "This application manages contacts, providing functionalities for user registration, login, Google OAuth authentication, password reset, and operations on user-specific contacts stored in the database."
   },
   "servers": [
     {
@@ -18,11 +18,7 @@
   "tags": [
     {
       "name": "Contacts",
-      "description": "Operations about contacts."
-    },
-    {
-      "name": "Auth",
-      "description": "Auth operations."
+      "description": "Operations related to managing contacts."
     }
   ],
   "paths": {
@@ -543,7 +539,8 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "schemas": {
