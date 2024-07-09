@@ -13,7 +13,6 @@ properties:
     description: "Contact's name"
     type: string
     example: 'John Doe'
-
   phoneNumber:
     description: "Contact's phone number"
     type: string

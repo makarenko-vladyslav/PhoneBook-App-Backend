@@ -27,8 +27,170 @@ paths:
       $ref: ../swagger/paths/contacts/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/contacts/{id}/delete.yaml
+
+  /auth/get-oauth-url:
+    get:
+      tags:
+        - Auth
+      summary: Get Google OAuth URL
+      responses:
+        '200':
+          description: Success
+
+  /auth/confirm-oauth:
+    post:
+      tags:
+        - Auth
+      summary: Confirm OAuth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginWithGoogleOAuth'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+      responses:
+        '201':
+          description: Created
+        '409':
+          description: Email in use
+
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+
+  /auth/refresh:
+    post:
+      tags:
+        - Auth
+      summary: Refresh User Session
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout User
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+
+  /auth/send-reset-email:
+    post:
+      tags:
+        - Auth
+      summary: Send Password Reset Email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestResetEmail'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /auth/reset-pwd:
+    post:
+      tags:
+        - Auth
+      summary: Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPassword'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+  schemas:
+    LoginWithGoogleOAuth:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Google OAuth token
+      required:
+        - token
+    RegisterUser:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    LoginUser:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    RequestResetEmail:
+      type: object
+      properties:
+        email:
+          type: string
+      required:
+        - email
+    ResetPassword:
+      type: object
+      properties:
+        token:
+          type: string
+        newPassword:
+          type: string
+      required:
+        - token
+        - newPassword
