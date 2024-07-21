@@ -26,12 +26,6 @@ const router = Router();
 router.get('/get-oauth-url', ctrlWrapper(getGoogleOAuthUrlController));
 
 router.post(
-  '/confirm-oauth',
-  validateBody(loginWithGoogleOAuthSchema),
-  ctrlWrapper(loginWithGoogleController),
-);
-
-router.post(
   '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
@@ -57,6 +51,12 @@ router.post(
   '/reset-pwd',
   validateBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
+);
+
+router.post(
+  '/confirm-oauth',
+  validateBody(loginWithGoogleOAuthSchema),
+  ctrlWrapper(loginWithGoogleController),
 );
 
 export default router;
