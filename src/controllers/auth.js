@@ -13,18 +13,15 @@ import { generateAuthUrl } from '../utils/googleOAuth2.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
+  const session = await loginUser(req.body);
 
-  if (user) {
-    const session = await loginUser(req.body);
+  setupSession(res, session);
 
-    setupSession(res, session);
-
-    res.json({
-      status: 201,
-      message: 'Successfully registered a user and logged in!',
-      data: { user, accessToken: session.accessToken },
-    });
-  }
+  res.json({
+    status: 201,
+    message: 'Successfully registered a user and logged in!',
+    data: { user, accessToken: session.accessToken },
+  });
 };
 
 export const loginUserController = async (req, res) => {
